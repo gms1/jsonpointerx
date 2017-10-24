@@ -1,5 +1,7 @@
 # jsonpointerx
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/gms1/jsonpointerx.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://api.travis-ci.org/gms1/jsonpointerx.svg?branch=master)](https://travis-ci.org/gms1/jsonpointerx)
 
 **jsonpointerx** is one of the x-th jsonpointer implementation
