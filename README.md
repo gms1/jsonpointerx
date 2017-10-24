@@ -1,8 +1,11 @@
 # jsonpointerx
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/gms1/jsonpointerx.svg)](https://greenkeeper.io/)
-
 [![Build Status](https://api.travis-ci.org/gms1/jsonpointerx.svg?branch=master)](https://travis-ci.org/gms1/jsonpointerx)
+[![npm version](https://badge.fury.io/js/jsonpointerx.svg)](https://badge.fury.io/js/jsonpointerx)
+[![Dependency Status](https://david-dm.org/gms1/jsonpointerx.svg)](https://david-dm.org/gms1/jsonpointerx)
+[![devDependency Status](https://david-dm.org/gms1/jsonpointerx/dev-status.svg)](https://david-dm.org/gms1/jsonpointerx#info=devDependencies)
+[![Known Vulnerabilities](https://snyk.io/test/github/gms1/jsonpointerx/badge.svg)](https://snyk.io/test/github/gms1/jsonpointerx)
+[![Greenkeeper badge](https://badges.greenkeeper.io/gms1/jsonpointerx.svg)](https://greenkeeper.io/)
 
 **jsonpointerx** is one of the x-th jsonpointer implementation
 The reason I started this project was the need for fast 'get / set' methods via JSON pointers ( see benchmark below )
