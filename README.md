@@ -5,8 +5,6 @@
 **jsonpointerx** is one of the x-th jsonpointer implementation
 The reason I started this project was the need for fast 'get / set' methods via JSON pointers ( see benchmark below )
 
-> NOTE:
-
 ## Introduction
 
 ### Installation
@@ -50,6 +48,8 @@ JsonPointer.set(content, '/foo/0', 'bar');      // sets content.foo[0] to 'bar'
 JsonPointer.get(content, '/foo/0');             // returns 'bar' (content.foo[0])
 
 ```
+
+> NOTE: feel free to contribute if you have additional requirements
 
 ## Benchmark
 
