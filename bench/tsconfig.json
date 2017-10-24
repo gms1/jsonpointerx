@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": ["es2015","es2016","es2017"],
+    "types": ["node"],
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "sourceMap": false,
+    "inlineSources": false,
+    "typeRoots": [
+      "./node_modules/@types/",
+      "./types/"
+    ],
+    "rootDir": "src"
+  },
+  "exclude": [
+    "./cache/**/*",
+    "./node_modules/**/*"
+  ]
+}

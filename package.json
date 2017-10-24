@@ -1,0 +1,65 @@
+{
+  "name": "jsonpointerx",
+  "version": "1.0.0",
+  "description": "the x-th jsonpointer (rfc6901) implementation",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "tags": [
+    "javascript",
+    "typescript",
+    "json pointer",
+    "rfc6901"
+  ],
+  "author": {
+    "email": "www.gms@gmx.at",
+    "name": "Guenter Sandner"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gms1/jsonpointerx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gms1/jsonpointerx/issues"
+  },
+  "homepage": "https://github.com/gms1/jsonpointerx",
+  "scripts": {
+    "clean": "gulp clean",
+    "build": "gulp build",
+    "rebuild": "gulp rebuild",
+    "watch": "gulp watch",
+    "test": "gulp test",
+    "testwatch": "gulp watch --task=test",
+    "typedoc": "typedoc --options typedoc.json --out docs/typedoc/jsonpointerx --exclude '**/*.spec.ts' src/",
+    "prepublishOnly": "echo \"ERROR: please use the dist-folder for publishing\" && exit 1",
+    "release:build": "gulp clean && gulp build test --prod",
+    "release:publish": "npm run typedoc && cd dist && npm --access public publish"
+  },
+  "dependencies": {
+    "json-ptr": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^2.6.0",
+    "@types/node": "^8.0.46",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-batch": "^1.0.5",
+    "gulp-jasmine": "^2.4.2",
+    "gulp-json-transform": "^0.4.5",
+    "gulp-options": "^1.1.1",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-tslint": "^8.1.2",
+    "gulp-typescript": "^3.2.2",
+    "gulp-watch": "^4.3.11",
+    "jasmine": "^2.8.0",
+    "jasmine-spec-reporter": "^4.2.1",
+    "merge-stream": "^1.0.1",
+    "run-sequence": "^2.2.0",
+    "tslint": "^5.8.0",
+    "typedoc": "^0.9.0",
+    "typescript": "^2.5.3"
+  },
+  "typescript": {
+    "definition": "./index.d.ts"
+  }
+}

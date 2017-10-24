@@ -1,0 +1,26 @@
+{
+  "name": "jsonpointer-bench",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "ts-node --project . --cache-directory=./cache ./src/jp-bench.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gms1/jsonpointerx.git"
+  },
+  "author": "Guenter Sandner",
+  "license": "MIT",
+  "dependencies": {
+    "@types/benchmark": "^1.0.30",
+    "@types/node": "^8.0.46",
+    "beautify-benchmark": "^0.2.4",
+    "benchmark": "^2.1.4",
+    "json-pointer": "^0.6.0",
+    "json-ptr": "^1.0.1",
+    "jsonpointer": "^4.0.1",
+    "jsonpointerx": "file:../dist",
+    "ts-node": "^3.3.0"
+  }
+}
