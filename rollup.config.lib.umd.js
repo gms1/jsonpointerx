@@ -13,7 +13,7 @@ module.exports = {
   input: `dist/${pkg.module}`,
   output: {
     name: moduleName,
-    file: `dist/bundles/${pkg.name}.js`,
+    file: `dist/bundles/${pkg.name}.umd.js`,
     format: 'umd',
     banner: `/*!\n${pkg.name} ${pkg.version} ${utc} \n*/`,
     sourcemap: true,

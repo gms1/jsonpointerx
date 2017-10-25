@@ -1,6 +1,6 @@
 {
   "name": "jsonpointerx",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "the x-th jsonpointer (rfc6901) implementation",
   "main": "./index.js",
   "module": "./module/index.js",
