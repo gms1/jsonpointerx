@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "the x-th jsonpointer (rfc6901) implementation",
   "main": "./index.js",
+  "module": "./module/index.js",
   "types": "./index.d.ts",
   "tags": [
     "javascript",
@@ -35,9 +36,7 @@
     "release:build": "gulp clean && gulp build test --prod",
     "release:publish": "npm run typedoc && cd dist && npm --access public publish"
   },
-  "dependencies": {
-    "json-ptr": "^1.0.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/jasmine": "^2.6.0",
     "@types/node": "^8.0.46",
@@ -54,6 +53,8 @@
     "jasmine": "^2.8.0",
     "jasmine-spec-reporter": "^4.2.1",
     "merge-stream": "^1.0.1",
+    "rollup": "^0.50.0",
+    "rollup-plugin-uglify": "^2.0.1",
     "run-sequence": "^2.2.0",
     "tslint": "^5.8.0",
     "typedoc": "^0.9.0",

@@ -32,13 +32,24 @@ function config(target /* 'production' or 'development' */) {
         deps: ['dist:packageJson', 'dist:copyMainFiles'],
       },
       {
-        name: 'ts:tsc',
+        name: 'ts:tsc:main',
         operation: {
           type: 'typescript',
           watch: true,
           tsConfigFile: 'tsconfig.json'
           // tsLintFile: 'tslint.json'
         }
+      },
+      {
+        name: 'ts:tsc:module',
+        operation: {
+          type: 'typescript',
+          tsConfigFile: 'tsconfig.module.json',
+        }
+      },
+      {
+        name: 'ts:tsc',
+        deps: ['ts:tsc:main', 'ts:tsc:module'],
       },
       {
         name: 'ts:lint',
@@ -49,11 +60,20 @@ function config(target /* 'production' or 'development' */) {
         }
       },
       {
+        name: 'rollup:main',
+        deps: ['ts:tsc'],
+        operation: {
+          type: 'rollup',
+          rollupConfigFile: './rollup.config.lib.umd.js',
+          addMinified: false,
+        }
+      },
+      {
         name: 'ts:lint:full',
         operation: {type: 'tslint', src: './src/**/*.ts', tsLintFile: 'tslint.full.json', typeChecking: true}
       },
-      {name: 'build', deps: ['dist:files', 'ts:tsc', tsLintTask]},
-      {name: 'test', deps: ['build'], operation: {type: 'jasmine', src: './dist/**/*.spec.js'}}
+      {name: 'build', deps: ['dist:files', 'rollup:main', tsLintTask]},
+      {name: 'test', deps: ['build'], operation: {type: 'jasmine', src: './dist/*.spec.js'}}
     ]
 
   };
