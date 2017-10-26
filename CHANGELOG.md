@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 1.0.3
+
+* **Features**
+  * added 'root' and 'segments' property getters
+
+## 1.0.2
+
+* **Fix**
+  * rename UMD bundle to jsonpointerx.umd.js
+
 ## 1.0.1
 
 * **Features**

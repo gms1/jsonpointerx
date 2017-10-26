@@ -2,18 +2,22 @@ const fromJpStringSearch: RegExp = /~[01]/g;
 const toJpStringSearch: RegExp = /[~\/]/g;
 
 export class JsonPointer {
-  private segments: string[];
+  private _segments: string[];
+  get segments(): string[] { return this._segments.slice(0); }
+
+  get root(): boolean { return this._segments.length === 0 ? true : false; }
+
   private fnGet: (input: string) => any;
 
   constructor(segments?: string|string[], noCompile?: boolean) {
     if (segments) {
       if (Array.isArray(segments)) {
-        this.segments = segments;
+        this._segments = segments;
       } else {
-        this.segments = [segments];
+        this._segments = [segments];
       }
     } else {
-      this.segments = [];
+      this._segments = [];
     }
     if (!noCompile) {
       this.compileFunctions();
@@ -37,11 +41,11 @@ export class JsonPointer {
     if (typeof input !== 'object') {
       throw new Error('Invalid input object.');
     }
-    if (this.segments.length === 0) {
+    if (this._segments.length === 0) {
       throw new Error(`setting via root JSON pointer is not allowed.`);
     }
 
-    const len = this.segments.length - 1;
+    const len = this._segments.length - 1;
     let node = input;
     let nextnode: any;
     let part: string;
@@ -50,10 +54,10 @@ export class JsonPointer {
       if (node === null || typeof node !== 'object') {
         throw new Error(`Invalid JSON pointer reference (level ${idx}).`);
       }
-      part = this.segments[idx++];
+      part = this._segments[idx++];
       nextnode = node[part];
       if (nextnode === undefined) {
-        if (this.segments[idx] === '-') {
+        if (this._segments[idx] === '-') {
           nextnode = [];
         } else {
           nextnode = {};
@@ -76,10 +80,10 @@ export class JsonPointer {
     }
 
     if (value === undefined) {
-      delete node[this.segments[len]];
+      delete node[this._segments[len]];
     } else {
       if (Array.isArray(node)) {
-        let i = parseInt(this.segments[len], 10);
+        let i = parseInt(this._segments[len], 10);
         if (isNaN(i)) {
           throw Error(`Invalid JSON pointer array index reference at end of pointer.`);
         }
@@ -88,40 +92,41 @@ export class JsonPointer {
         if (typeof node !== 'object') {
           throw new Error(`Invalid JSON pointer reference at end of pointer.`);
         }
-        node[this.segments[len]] = value;
+        node[this._segments[len]] = value;
       }
     }
     return input;
   }
 
-  concat(p: JsonPointer): JsonPointer { return new JsonPointer(this.segments.concat(p.segments)); }
-  concatSegment(segment: string|string[]): JsonPointer { return new JsonPointer(this.segments.concat(segment)); }
+  concat(p: JsonPointer): JsonPointer { return new JsonPointer(this._segments.concat(p.segments)); }
+  concatSegment(segment: string|string[]): JsonPointer { return new JsonPointer(this._segments.concat(segment)); }
   concatPointer(pointer: string): JsonPointer { return this.concat(JsonPointer.compile(pointer)); }
 
   toString(): string {
-    if (this.segments.length === 0) {
+    if (this._segments.length === 0) {
       return '';
     }
     return '/'.concat(
         // tslint:disable-next-line: no-unbound-method
-        this.segments.map((v: string) => v.replace(toJpStringSearch, JsonPointer.toJpStringReplace)).join('/'));
+        this._segments.map((v: string) => v.replace(toJpStringSearch, JsonPointer.toJpStringReplace)).join('/'));
   }
 
   toURIFragmentIdentifier(): string {
-    if (this.segments.length === 0) {
+    if (this._segments.length === 0) {
       return '#';
     }
     return '#/'.concat(
-        // tslint:disable-next-line: no-unbound-method
-        this.segments.map((v: string) => encodeURIComponent(v).replace(toJpStringSearch, JsonPointer.toJpStringReplace))
+        this._segments
+            // tslint:disable-next-line: no-unbound-method
+            .map((v: string) => encodeURIComponent(v).replace(toJpStringSearch, JsonPointer.toJpStringReplace))
             .join('/'));
   }
 
   private compileFunctions(): void {
     let body = '';
 
-    for (let idx = 0; idx < this.segments.length;) {
-      let segment = this.segments[idx++].replace(/\\/g, '\\\\');
+    for (let idx = 0; idx < this._segments.length;) {
+      let segment = this._segments[idx++].replace(/\\/g, '\\\\');
       body += `
       if (node == undefined) return undefined;
       node = node['${segment}'];
