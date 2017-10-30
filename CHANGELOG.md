@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.4
+
+* **Fix**
+  * static JsonPointer.get was broken
+
 ## 1.0.3
 
 * **Features**
