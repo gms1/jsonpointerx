@@ -29,15 +29,15 @@ export class JsonPointer {
   get(input: any): any { return this.fnGet(input); }
 
   getUncompiled(input: any): any {
-     let node = input;
-      for (let idx = 0; idx < this._segments.length;) {
-       // tslint:disable-next-line triple-equals
-       if (node == undefined) {
+    let node = input;
+    for (let idx = 0; idx < this._segments.length;) {
+      // tslint:disable-next-line triple-equals
+      if (node == undefined) {
         return undefined;
-       }
-       node = node[this._segments[idx++]];
-     }
-     return node;
+      }
+      node = node[this._segments[idx++]];
+    }
+    return node;
   }
 
 
@@ -170,12 +170,8 @@ export class JsonPointer {
     throw new Error(`JSON pointer '${pointer}' is invalid.`);
   }
 
-  static get(obj: any, pointer: string): any {
-    return JsonPointer.compile(pointer).get(obj);
-  }
-  static set(obj: any, pointer: string, value: any): any {
-    return JsonPointer.compile(pointer, true).set(obj, value);
-  }
+  static get(obj: any, pointer: string): any { return JsonPointer.compile(pointer).get(obj); }
+  static set(obj: any, pointer: string, value: any): any { return JsonPointer.compile(pointer, true).set(obj, value); }
 
   static fromJpStringReplace(v: string): string {
     switch (v) {
