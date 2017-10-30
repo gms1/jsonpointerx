@@ -49,14 +49,16 @@ export class JsonPointer {
    * @returns       returns 'value' if pointer.length === 1 or 'input' otherwise
    *
    * throws if 'input' is not an object
-   * throws if one of the ancestors is a scalar
+   * throws if set is called for a root JSON pointer
+   * throws on invalid array index references
+   * throws if one of the ancestors is a scalar (js engine): Cannot create propery 'foo' on 'baz
    */
   set(input: any, value?: any): any {
     if (typeof input !== 'object') {
       throw new Error('Invalid input object.');
     }
     if (this._segments.length === 0) {
-      throw new Error(`setting via root JSON pointer is not allowed.`);
+      throw new Error(`Set for root JSON pointer is not allowed.`);
     }
 
     const len = this._segments.length - 1;
@@ -65,12 +67,10 @@ export class JsonPointer {
     let part: string;
 
     for (let idx = 0; idx < len;) {
-      if (node === null || typeof node !== 'object') {
-        throw new Error(`Invalid JSON pointer reference (level ${idx}).`);
-      }
       part = this._segments[idx++];
       nextnode = node[part];
-      if (nextnode === undefined) {
+      // tslint:disable-next-line triple-equals
+      if (nextnode == undefined) {
         if (this._segments[idx] === '-') {
           nextnode = [];
         } else {
@@ -103,9 +103,6 @@ export class JsonPointer {
         }
         node[i] = value;
       } else {
-        if (typeof node !== 'object') {
-          throw new Error(`Invalid JSON pointer reference at end of pointer.`);
-        }
         node[this._segments[len]] = value;
       }
     }
