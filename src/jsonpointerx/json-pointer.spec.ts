@@ -48,51 +48,68 @@ describe('json-pointer', () => {
 
   });
 
-  it('get', () => {
-    expect(JsonPointer.compile('').get(rfcExample)).toEqual(rfcExample, 'get failed for ""');
-    expect(JsonPointer.compile('/foo').get(rfcExample)).toEqual(rfcExample.foo, 'get failed for "/foo"');
-    expect(JsonPointer.compile('/foo/0').get(rfcExample)).toEqual(rfcExample.foo[0], 'get failed for "/foo/0"');
-    expect(JsonPointer.compile('/').get(rfcExample)).toEqual(rfcExample[''], 'get failed for "/"');
-    expect(JsonPointer.compile('/a~1b').get(rfcExample)).toEqual(rfcExample['a/b'], 'get failed for "/a~1b"');
-    expect(JsonPointer.compile('/c%d').get(rfcExample)).toEqual(rfcExample['c%d'], 'get failed for "/c%d"');
-    expect(JsonPointer.compile('/e^f').get(rfcExample)).toEqual(rfcExample['e^f'], 'get failed for "/e^f"');
-    expect(JsonPointer.compile('/g|h').get(rfcExample)).toEqual(rfcExample['g|h'], 'get failed for "/g|h"');
-    expect(JsonPointer.compile('/i\\j').get(rfcExample)).toEqual(rfcExample['i\\j'], 'get failed for "/i\\j"');
-    expect(JsonPointer.compile('/k"l').get(rfcExample)).toEqual(rfcExample['k"l'], 'get failed for "/k"l"');
-    expect(JsonPointer.compile('/ ').get(rfcExample)).toEqual(rfcExample[' '], 'get failed for "/ "');
-    expect(JsonPointer.compile('/m~0n').get(rfcExample)).toEqual(rfcExample['m~n'], 'get failed for "/m~0n"');
+  function testGet(decodeOnly: boolean): void {
+    expect(JsonPointer.compile('', decodeOnly).get(rfcExample)).toEqual(rfcExample, 'get failed for ""');
+    expect(JsonPointer.compile('/foo', decodeOnly).get(rfcExample)).toEqual(rfcExample.foo, 'get failed for "/foo"');
+    expect(JsonPointer.compile('/foo/0', decodeOnly).get(rfcExample)).toEqual(rfcExample.foo[0], 'get failed for "/foo/0"');
+    expect(JsonPointer.compile('/', decodeOnly).get(rfcExample)).toEqual(rfcExample[''], 'get failed for "/"');
+    expect(JsonPointer.compile('/a~1b', decodeOnly).get(rfcExample)).toEqual(rfcExample['a/b'], 'get failed for "/a~1b"');
+    expect(JsonPointer.compile('/c%d', decodeOnly).get(rfcExample)).toEqual(rfcExample['c%d'], 'get failed for "/c%d"');
+    expect(JsonPointer.compile('/e^f', decodeOnly).get(rfcExample)).toEqual(rfcExample['e^f'], 'get failed for "/e^f"');
+    expect(JsonPointer.compile('/g|h', decodeOnly).get(rfcExample)).toEqual(rfcExample['g|h'], 'get failed for "/g|h"');
+    expect(JsonPointer.compile('/i\\j', decodeOnly).get(rfcExample)).toEqual(rfcExample['i\\j'], 'get failed for "/i\\j"');
+    expect(JsonPointer.compile('/k"l', decodeOnly).get(rfcExample)).toEqual(rfcExample['k"l'], 'get failed for "/k"l"');
+    expect(JsonPointer.compile('/ ', decodeOnly).get(rfcExample)).toEqual(rfcExample[' '], 'get failed for "/ "');
+    expect(JsonPointer.compile('/m~0n', decodeOnly).get(rfcExample)).toEqual(rfcExample['m~n'], 'get failed for "/m~0n"');
 
-    expect(JsonPointer.compile('#').get(rfcExample)).toEqual(rfcExample, 'get failed for "#"');
-    expect(JsonPointer.compile('#/foo').get(rfcExample)).toEqual(rfcExample.foo, 'get failed for "#/foo"');
-    expect(JsonPointer.compile('#/foo/0').get(rfcExample)).toEqual(rfcExample.foo[0], 'get failed for "#/foo/0"');
-    expect(JsonPointer.compile('#/').get(rfcExample)).toEqual(rfcExample[''], 'get failed for "#/"');
-    expect(JsonPointer.compile('#/a~1b').get(rfcExample)).toEqual(rfcExample['a/b'], 'get failed for "#/a~1b"');
-    expect(JsonPointer.compile('#/c%25d').get(rfcExample)).toEqual(rfcExample['c%d'], 'get failed for "#/c%25d"');
-    expect(JsonPointer.compile('#/e%5Ef').get(rfcExample)).toEqual(rfcExample['e^f'], 'get failed for "#/e%5Ef"');
-    expect(JsonPointer.compile('#/g%7Ch').get(rfcExample)).toEqual(rfcExample['g|h'], 'get failed for "#/g%7Ch"');
-    expect(JsonPointer.compile('#/i%5Cj').get(rfcExample)).toEqual(rfcExample['i\\j'], 'get failed for "#/i%5Cj"');
-    expect(JsonPointer.compile('#/k%22l').get(rfcExample)).toEqual(rfcExample['k"l'], 'get failed for "#/k%22l"');
-    expect(JsonPointer.compile('#/%20').get(rfcExample)).toEqual(rfcExample[' '], 'get failed for "#/%20"');
-    expect(JsonPointer.compile('#/m~0n').get(rfcExample)).toEqual(rfcExample['m~n'], 'get failed for "#/m~0n"');
+    expect(JsonPointer.compile('#', decodeOnly).get(rfcExample)).toEqual(rfcExample, 'get failed for "#"');
+    expect(JsonPointer.compile('#/foo', decodeOnly).get(rfcExample)).toEqual(rfcExample.foo, 'get failed for "#/foo"');
+    expect(JsonPointer.compile('#/foo/0', decodeOnly).get(rfcExample)).toEqual(rfcExample.foo[0], 'get failed for "#/foo/0"');
+    expect(JsonPointer.compile('#/', decodeOnly).get(rfcExample)).toEqual(rfcExample[''], 'get failed for "#/"');
+    expect(JsonPointer.compile('#/a~1b', decodeOnly).get(rfcExample)).toEqual(rfcExample['a/b'], 'get failed for "#/a~1b"');
+    expect(JsonPointer.compile('#/c%25d', decodeOnly).get(rfcExample)).toEqual(rfcExample['c%d'], 'get failed for "#/c%25d"');
+    expect(JsonPointer.compile('#/e%5Ef', decodeOnly).get(rfcExample)).toEqual(rfcExample['e^f'], 'get failed for "#/e%5Ef"');
+    expect(JsonPointer.compile('#/g%7Ch', decodeOnly).get(rfcExample)).toEqual(rfcExample['g|h'], 'get failed for "#/g%7Ch"');
+    expect(JsonPointer.compile('#/i%5Cj', decodeOnly).get(rfcExample)).toEqual(rfcExample['i\\j'], 'get failed for "#/i%5Cj"');
+    expect(JsonPointer.compile('#/k%22l', decodeOnly).get(rfcExample)).toEqual(rfcExample['k"l'], 'get failed for "#/k%22l"');
+    expect(JsonPointer.compile('#/%20', decodeOnly).get(rfcExample)).toEqual(rfcExample[' '], 'get failed for "#/%20"');
+    expect(JsonPointer.compile('#/m~0n', decodeOnly).get(rfcExample)).toEqual(rfcExample['m~n'], 'get failed for "#/m~0n"');
 
 
     // extended the rfc example:
 
     // should not throw on undefined ancestors:
-    expect(JsonPointer.compile('/undef1').get(rfcExample)).toBeUndefined('get failed for "/undef1"');
+    expect(JsonPointer.compile('/undef1', decodeOnly).get(rfcExample)).toBeUndefined('get failed for "/undef1"');
 
-    expect(JsonPointer.compile('/foo/undef2').get(rfcExample)).toBeUndefined('get failed for "/foo/undef2"');
-    expect(JsonPointer.compile('/foo/undef2/undef3').get(rfcExample)).toBeUndefined('get failed for "/foo/undef2/undef3"');
+    expect(JsonPointer.compile('/foo/undef2', decodeOnly).get(rfcExample)).toBeUndefined('get failed for "/foo/undef2"');
+    expect(JsonPointer.compile('/foo/undef2/undef3', decodeOnly).get(rfcExample)).toBeUndefined('get failed for "/foo/undef2/undef3"');
 
     // should not throw on null ancestors:
     rfcExample.foo.null1 = null;
-    expect(JsonPointer.compile('/foo/null1').get(rfcExample)).toEqual(rfcExample.foo.null1, 'get failed for "/foo/null1"');
-    expect(JsonPointer.compile('/foo/null1/undef3').get(rfcExample)).toBeUndefined('get failed for "/foo/null1/undef3"');
+    expect(JsonPointer.compile('/foo/null1', decodeOnly).get(rfcExample)).toEqual(rfcExample.foo.null1, 'get failed for "/foo/null1"');
+    expect(JsonPointer.compile('/foo/null1/undef3', decodeOnly).get(rfcExample)).toBeUndefined('get failed for "/foo/null1/undef3"');
 
     // decoding of '~01'
     rfcExample.foo['~1'] = 'foo';
-    expect(JsonPointer.compile('/foo/~01').get(rfcExample)).toEqual(rfcExample.foo['~1'], 'get failed for "/foo/~01"');
+    expect(JsonPointer.compile('/foo/~01', decodeOnly).get(rfcExample)).toEqual(rfcExample.foo['~1'], 'get failed for "/foo/~01"');
+  }
 
+  it('get compiled', () => {
+    testGet(false);
+  });
+
+  it('get non compiled', () => {
+    testGet(true);
+  });
+
+  it('get static', () => {
+    expect(JsonPointer.get(rfcExample, '/foo/0')).toEqual(rfcExample.foo[0], 'static get failed for "/foo/0"');
+  });
+
+  it('set static', () => {
+    let setValue = 'angular';
+    JsonPointer.set(rfcExample, '/foo/0', setValue);
+    expect(JsonPointer.get(rfcExample, '/foo/0')).toEqual(setValue, 'static set failed for "/foo/0"');
   });
 
   it('set', () => {

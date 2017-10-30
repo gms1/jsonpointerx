@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ts-node --project . --cache-directory=./cache ./src/jp-bench.ts"
+    "test": "ts-node --project . --cache-directory=./cache ./src/jp-bench.ts",
+    "internal-get-bench": "ts-node --project . --cache-directory=./cache ./src/internal-get-bench.ts"
   },
   "repository": {
     "type": "git",

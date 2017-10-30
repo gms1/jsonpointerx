@@ -19,12 +19,26 @@ export class JsonPointer {
     } else {
       this._segments = [];
     }
-    if (!noCompile) {
+    if (noCompile) {
+      this.fnGet = this.getUncompiled;
+    } else {
       this.compileFunctions();
     }
   }
 
   get(input: any): any { return this.fnGet(input); }
+
+  getUncompiled(input: any): any {
+     let node = input;
+      for (let idx = 0; idx < this._segments.length;) {
+       // tslint:disable-next-line triple-equals
+       if (node == undefined) {
+        return undefined;
+       }
+       node = node[this._segments[idx++]];
+     }
+     return node;
+  }
 
 
   /**
