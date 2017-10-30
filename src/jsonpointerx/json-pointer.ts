@@ -171,12 +171,10 @@ export class JsonPointer {
   }
 
   static get(obj: any, pointer: string): any {
-    let jp = JsonPointer.compile(pointer, true);
-    return jp.get(obj);
+    return JsonPointer.compile(pointer).get(obj);
   }
   static set(obj: any, pointer: string, value: any): any {
-    let jp = JsonPointer.compile(pointer, true);
-    return jp.set(obj, value);
+    return JsonPointer.compile(pointer, true).set(obj, value);
   }
 
   static fromJpStringReplace(v: string): string {
