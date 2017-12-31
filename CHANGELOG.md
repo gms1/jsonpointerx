@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.5
+
+* **Feature**
+  * added 'noCompile' option to globally disable the use of `new Function('..')`
+
 ## 1.0.4
 
 * **Fix**
