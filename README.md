@@ -27,26 +27,30 @@ import {JsonPointer} from 'jsonpointerx';
 let content = { foo: ['bar', 'baz'], more: {x: 'y'} };
 let jp = JsonPointer.compile('/foo/0');
 let jp2 = JsonPointer.compile('/more');
-let jp3 = new JsonPointer(['add','new']);  // another way to instantiate a JsonPointer using decoded path segments
-                                           // (property names)
+let jp3 = new JsonPointer(['add','new']);    // another way to instantiate a JsonPointer using decoded path segments
+                                             // (property names)
 
-jp.get(content);                           // returns 'bar' (content.foo[0])
+jp.get(content);                             // returns 'bar' (content.foo[0])
 
-jp.set(content, 'bak');                    // sets content.foo[0] to 'bak'
-jp.set(content);                           // deletes content.foo[0] (does not change the length of the array)
-jp2.set(content);                          // deletes content.more
+jp.set(content, 'bak');                      // sets content.foo[0] to 'bak'
+jp.set(content);                             // deletes content.foo[0] (does not change the length of the array)
+jp2.set(content);                            // deletes content.more
 
-jp3.set(content, {key: 'value'});          // sets content.add.new.key to 'value'
+jp3.set(content, {key: 'value'});            // sets content.add.new.key to 'value'
 
-jp.toString();                             // returns '/foo/0'
-jp.toURIFragmentIdentifier();              // returns '#/foo/0'
+jp.toString();                               // returns '/foo/0'
+jp.toURIFragmentIdentifier();                // returns '#/foo/0'
 
+jp2.concat(jp3).toString();                  // returns '/more/add/new'
+jp2.concatSegment('add').toString();         // returns '/more/add'
+jp2.concatSegment(['add','new']).toString(); // returns '/more/add/new'
+jp2.concatPointer('/add/new').toString();    // returns '/more/add/new'
 
 ```
 
 > NOTE: the 'get' method should never throw
 
-for convenience these further methods exist:
+for convenience these further static methods exist:
 
 ```Javascript
 
@@ -93,6 +97,15 @@ json pointer: set property - suite:
   json-ptr.set     x 2,760,613 ops/sec ±0.39% (95 runs sampled)
   jsonpointerx.set x 5,279,633 ops/sec ±0.21% (95 runs sampled)
 
+```
+
+## Security
+
+> NOTE: sometimes the use of `new Function('...')` is forbidden (e.g using strict content-security-policy)
+so you may want to disable this feature by setting the global 'noCompile' option to 'off':
+
+```Javascript
+JsonPointer.options({noCompile: true});
 ```
 
 ## License

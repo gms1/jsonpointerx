@@ -1,7 +1,11 @@
 const fromJpStringSearch: RegExp = /~[01]/g;
 const toJpStringSearch: RegExp = /[~\/]/g;
 
+export interface JsonPointerOpts { noCompile?: boolean; }
+
 export class JsonPointer {
+  private static opts: JsonPointerOpts|undefined;
+
   private _segments: string[];
   get segments(): string[] { return this._segments.slice(0); }
 
@@ -9,6 +13,11 @@ export class JsonPointer {
 
   private fnGet: (input: string) => any;
 
+  /**
+   * Creates an instance of JsonPointer.
+   * @param [segments] - The path segments of the json-pointer / The decoded json-pointer
+   * @param [noCompile] - disable compiling (using 'new Function')
+   */
   constructor(segments?: string|string[], noCompile?: boolean) {
     if (segments) {
       if (Array.isArray(segments)) {
@@ -19,15 +28,27 @@ export class JsonPointer {
     } else {
       this._segments = [];
     }
-    if (noCompile) {
+    if (noCompile || (JsonPointer.opts && JsonPointer.opts.noCompile)) {
       this.fnGet = this.getUncompiled;
     } else {
       this.compileFunctions();
     }
   }
 
+  /**
+   * Get a value from a referenced location within an object
+   *
+   * @param obj - The object to be read from
+   * @returns The value from the referenced location or undefined
+   */
   get(input: any): any { return this.fnGet(input); }
 
+  /**
+   * fallback if compilation (using 'new Function') is disabled
+   *
+   * @param obj - The object to be read from
+   * @returns The value from the referenced location or undefined
+   */
   getUncompiled(input: any): any {
     let node = input;
     for (let idx = 0; idx < this._segments.length;) {
@@ -42,17 +63,17 @@ export class JsonPointer {
 
 
   /**
-   * set value
-   *
-   * @param input
-   * @param [value]
-   * @returns       returns 'value' if pointer.length === 1 or 'input' otherwise
-   *
-   * throws if 'input' is not an object
-   * throws if set is called for a root JSON pointer
-   * throws on invalid array index references
-   * throws if one of the ancestors is a scalar (js engine): Cannot create propery 'foo' on 'baz
-   */
+  * Set a value to the referenced location within an object
+  *
+  * @param obj - To object to be written in
+  * @param [value] - The value to be written to the referenced location
+  * @returns       returns 'value' if pointer.length === 1 or 'input' otherwise
+  *
+  * throws if 'input' is not an object
+  * throws if 'set' is called for a root JSON pointer
+  * throws on invalid array index references
+  * throws if one of the ancestors is a scalar (js engine): Cannot create propery 'foo' on 'baz'
+  */
   set(input: any, value?: any): any {
     if (typeof input !== 'object') {
       throw new Error('Invalid input object.');
@@ -149,6 +170,14 @@ export class JsonPointer {
     this.fnGet = new Function('node', body) as(input: string) => any;
   }
 
+  /**
+   * Instantiate a new 'JsonPointer' from encoded json-pointer
+   *
+   * @static
+   * @param pointer - The encoded json-pointer
+   * @param {boolean} [decodeOnly] - only decode and do not compile (using 'new Function')
+   * @returns {JsonPointer}
+   */
   static compile(pointer: string, decodeOnly?: boolean): JsonPointer {
     let segments = pointer.split('/');
     let firstSegment = segments.length >= 1 ? segments.shift() : undefined;
@@ -167,10 +196,37 @@ export class JsonPointer {
     throw new Error(`JSON pointer '${pointer}' is invalid.`);
   }
 
+  /**
+   * Get a value from a referenced location within an object
+   *
+   * @static
+   * @param obj - The object to be read from
+   * @param {string} pointer - The encoded json-pointer
+   * @returns The value from the referenced location or undefined
+   */
   static get(obj: any, pointer: string): any { return JsonPointer.compile(pointer).get(obj); }
-  static set(obj: any, pointer: string, value: any): any { return JsonPointer.compile(pointer, true).set(obj, value); }
 
-  static fromJpStringReplace(v: string): string {
+
+  /**
+   * Set a value to the referenced location within an object
+   *
+   * @static
+   * @param obj - To object to be written in
+   * @param pointer - The encoded json-pointer
+   * @param [value] - The value to be written to the referenced location
+   * @returns       returns 'value' if pointer.length === 1 or 'input' otherwise
+   */
+  static set(obj: any, pointer: string, value?: any): any { return JsonPointer.compile(pointer, true).set(obj, value); }
+
+  /**
+   * set global options
+   *
+   * @static
+   * @param {JsonPointerOpts} opts
+   */
+  static options(opts: JsonPointerOpts): void { JsonPointer.opts = opts; }
+
+  private static fromJpStringReplace(v: string): string {
     switch (v) {
       case '~1':
         return '/';
@@ -180,7 +236,7 @@ export class JsonPointer {
     throw new Error('JsonPointer.escapedReplacer: this should not happen');
   }
 
-  static toJpStringReplace(v: string): string {
+  private static toJpStringReplace(v: string): string {
     switch (v) {
       case '/':
         return '~1';
