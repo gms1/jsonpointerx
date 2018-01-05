@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.7
+
+* maintenance
+
 ## 1.0.5-1.0.6
 
 * **Feature**
