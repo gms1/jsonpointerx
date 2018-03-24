@@ -11,7 +11,7 @@ export class JsonPointer {
 
   get root(): boolean { return this._segments.length === 0 ? true : false; }
 
-  private fnGet: (input: string) => any;
+  private fnGet!: (input: string) => any;
 
   /**
    * Creates an instance of JsonPointer.
