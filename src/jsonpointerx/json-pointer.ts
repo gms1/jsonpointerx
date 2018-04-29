@@ -7,9 +7,13 @@ export class JsonPointer {
   private static opts: JsonPointerOpts|undefined;
 
   private _segments: string[];
-  get segments(): string[] { return this._segments.slice(0); }
+  get segments(): string[] {
+    return this._segments.slice(0);
+  }
 
-  get root(): boolean { return this._segments.length === 0 ? true : false; }
+  get root(): boolean {
+    return this._segments.length === 0 ? true : false;
+  }
 
   private fnGet!: (input: string) => any;
 
@@ -27,7 +31,7 @@ export class JsonPointer {
       }
     } else {
       this._segments = [];
-    }
+      }
     if (noCompile || (JsonPointer.opts && JsonPointer.opts.noCompile)) {
       this.fnGet = this.getUncompiled;
     } else {
@@ -41,7 +45,9 @@ export class JsonPointer {
    * @param obj - The object to be read from
    * @returns The value from the referenced location or undefined
    */
-  get(input: any): any { return this.fnGet(input); }
+  get(input: any): any {
+    return this.fnGet(input);
+  }
 
   /**
    * fallback if compilation (using 'new Function') is disabled
@@ -57,7 +63,7 @@ export class JsonPointer {
         return undefined;
       }
       node = node[this._segments[idx++]];
-    }
+      }
     return node;
   }
 
@@ -77,10 +83,10 @@ export class JsonPointer {
   set(input: any, value?: any): any {
     if (typeof input !== 'object') {
       throw new Error('Invalid input object.');
-    }
+      }
     if (this._segments.length === 0) {
       throw new Error(`Set for root JSON pointer is not allowed.`);
-    }
+      }
 
     const len = this._segments.length - 1;
     let node = input;
@@ -96,12 +102,12 @@ export class JsonPointer {
           nextnode = [];
         } else {
           nextnode = {};
-        }
+          }
         if (Array.isArray(node)) {
           if (part === '-') {
             node.push(nextnode);
           } else {
-            let i = parseInt(part, 10);
+            const i = parseInt(part, 10);
             if (isNaN(i)) {
               throw Error(`Invalid JSON pointer array index reference (level ${idx}).`);
             }
@@ -112,13 +118,13 @@ export class JsonPointer {
         }
       }
       node = nextnode;
-    }
+      }
 
     if (value === undefined) {
       delete node[this._segments[len]];
     } else {
       if (Array.isArray(node)) {
-        let i = parseInt(this._segments[len], 10);
+        const i = parseInt(this._segments[len], 10);
         if (isNaN(i)) {
           throw Error(`Invalid JSON pointer array index reference at end of pointer.`);
         }
@@ -126,18 +132,24 @@ export class JsonPointer {
       } else {
         node[this._segments[len]] = value;
       }
-    }
+      }
     return input;
   }
 
-  concat(p: JsonPointer): JsonPointer { return new JsonPointer(this._segments.concat(p.segments)); }
-  concatSegment(segment: string|string[]): JsonPointer { return new JsonPointer(this._segments.concat(segment)); }
-  concatPointer(pointer: string): JsonPointer { return this.concat(JsonPointer.compile(pointer)); }
+  concat(p: JsonPointer): JsonPointer {
+    return new JsonPointer(this._segments.concat(p.segments));
+  }
+  concatSegment(segment: string|string[]): JsonPointer {
+    return new JsonPointer(this._segments.concat(segment));
+  }
+  concatPointer(pointer: string): JsonPointer {
+    return this.concat(JsonPointer.compile(pointer));
+  }
 
   toString(): string {
     if (this._segments.length === 0) {
       return '';
-    }
+      }
     return '/'.concat(
         // tslint:disable-next-line: no-unbound-method
         this._segments.map((v: string) => v.replace(toJpStringSearch, JsonPointer.toJpStringReplace)).join('/'));
@@ -146,7 +158,7 @@ export class JsonPointer {
   toURIFragmentIdentifier(): string {
     if (this._segments.length === 0) {
       return '#';
-    }
+      }
     return '#/'.concat(
         this._segments
             // tslint:disable-next-line: no-unbound-method
@@ -158,7 +170,7 @@ export class JsonPointer {
     let body = '';
 
     for (let idx = 0; idx < this._segments.length;) {
-      let segment = this._segments[idx++].replace(/\\/g, '\\\\');
+      const segment = this._segments[idx++].replace(/\\/g, '\\\\');
       body += `
       if (node == undefined) return undefined;
       node = node['${segment}'];
@@ -167,7 +179,7 @@ export class JsonPointer {
     body += `
       return node;
     `;
-    this.fnGet = new Function('node', body) as(input: string) => any;
+    this.fnGet = new Function('node', body) as (input: string) => any;
   }
 
   /**
@@ -179,20 +191,20 @@ export class JsonPointer {
    * @returns {JsonPointer}
    */
   static compile(pointer: string, decodeOnly?: boolean): JsonPointer {
-    let segments = pointer.split('/');
-    let firstSegment = segments.length >= 1 ? segments.shift() : undefined;
+    const segments = pointer.split('/');
+    const firstSegment = segments.length >= 1 ? segments.shift() : undefined;
     if (firstSegment === '') {
       return new JsonPointer(
           // tslint:disable-next-line: no-unbound-method
           segments.map((v: string) => v.replace(fromJpStringSearch, JsonPointer.fromJpStringReplace)), decodeOnly);
-    }
+      }
     if (firstSegment === '#') {
       return new JsonPointer(
           segments.map(
               // tslint:disable-next-line: no-unbound-method
               (v: string) => decodeURIComponent(v.replace(fromJpStringSearch, JsonPointer.fromJpStringReplace))),
           decodeOnly);
-    }
+      }
     throw new Error(`JSON pointer '${pointer}' is invalid.`);
   }
 
@@ -204,7 +216,9 @@ export class JsonPointer {
    * @param {string} pointer - The encoded json-pointer
    * @returns The value from the referenced location or undefined
    */
-  static get(obj: any, pointer: string): any { return JsonPointer.compile(pointer).get(obj); }
+  static get(obj: any, pointer: string): any {
+    return JsonPointer.compile(pointer).get(obj);
+  }
 
 
   /**
@@ -216,7 +230,9 @@ export class JsonPointer {
    * @param [value] - The value to be written to the referenced location
    * @returns       returns 'value' if pointer.length === 1 or 'input' otherwise
    */
-  static set(obj: any, pointer: string, value?: any): any { return JsonPointer.compile(pointer, true).set(obj, value); }
+  static set(obj: any, pointer: string, value?: any): any {
+    return JsonPointer.compile(pointer, true).set(obj, value);
+  }
 
   /**
    * set global options
@@ -224,7 +240,9 @@ export class JsonPointer {
    * @static
    * @param {JsonPointerOpts} opts
    */
-  static options(opts: JsonPointerOpts): void { JsonPointer.opts = opts; }
+  static options(opts: JsonPointerOpts): void {
+    JsonPointer.opts = opts;
+  }
 
   private static fromJpStringReplace(v: string): string {
     switch (v) {
@@ -232,7 +250,7 @@ export class JsonPointer {
         return '/';
       case '~0':
         return '~';
-    }
+        }
     throw new Error('JsonPointer.escapedReplacer: this should not happen');
   }
 
@@ -242,7 +260,7 @@ export class JsonPointer {
         return '~1';
       case '~':
         return '~0';
-    }
+        }
     throw new Error('JsonPointer.unescapedReplacer: this should not happen');
   }
 }

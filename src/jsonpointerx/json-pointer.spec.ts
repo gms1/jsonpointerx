@@ -4,7 +4,7 @@ import {JsonPointer} from './index';
 
 function testConvertString(ptr: string): void {
   expect(JsonPointer.compile(ptr).toString()).toEqual(ptr, `convert failed for "${ptr}"`);
-}
+  }
 
 function testConvertURIFragment(ptr: string, alt?: string): void {
   expect(JsonPointer.compile(ptr).toURIFragmentIdentifier()).toEqual(alt ? alt : ptr, `convert failed for "${ptr}"`);
@@ -111,16 +111,20 @@ describe('json-pointer', () => {
         .toEqual(rfcExample.foo['~1'], 'get failed for "/foo/~01"');
   }
 
-  it('get compiled', () => { testGet(false); });
+  it('get compiled', () => {
+    testGet(false);
+  });
 
-  it('get non compiled', () => { testGet(true); });
+  it('get non compiled', () => {
+    testGet(true);
+  });
 
   it('get static', () => {
     expect(JsonPointer.get(rfcExample, '/foo/0')).toEqual(rfcExample.foo[0], 'static get failed for "/foo/0"');
   });
 
   it('set static', () => {
-    let setValue = 'angular';
+    const setValue = 'angular';
     JsonPointer.set(rfcExample, '/foo/0', setValue);
     expect(JsonPointer.get(rfcExample, '/foo/0')).toEqual(setValue, 'static set failed for "/foo/0"');
   });
