@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ts-node --project . --cache-directory=./cache ./src/jp-bench.ts",
-    "internal-get-bench": "ts-node --project . --cache-directory=./cache ./src/internal-get-bench.ts"
+    "test": "ts-node --cache-directory=./cache ./src/jp-bench.ts",
+    "internal-get-bench": "ts-node --cache-directory=./cache ./src/internal-get-bench.ts"
   },
   "repository": {
     "type": "git",
@@ -14,14 +14,14 @@
   "author": "Guenter Sandner",
   "license": "MIT",
   "dependencies": {
-    "@types/benchmark": "^1.0.30",
-    "@types/node": "^8.0.46",
+    "@types/benchmark": "^1.0.31",
+    "@types/node": "^10.0.3",
     "beautify-benchmark": "^0.2.4",
     "benchmark": "^2.1.4",
     "json-pointer": "^0.6.0",
-    "json-ptr": "^1.0.1",
+    "json-ptr": "^1.1.0",
     "jsonpointer": "^4.0.1",
     "jsonpointerx": "file:../dist",
-    "ts-node": "^3.3.0"
+    "ts-node": "^6.0.2"
   }
 }
