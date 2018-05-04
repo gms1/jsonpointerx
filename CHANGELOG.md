@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 1.0.7-1.0.9
+## 1.0.7-1.0.10
 
 * maintenance
 
