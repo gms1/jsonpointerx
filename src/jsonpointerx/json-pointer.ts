@@ -118,19 +118,25 @@ export class JsonPointer {
         }
       }
       node = nextnode;
-      }
+    }
 
+    part = this._segments[len];
     if (value === undefined) {
-      delete node[this._segments[len]];
+      delete node[part];
     } else {
       if (Array.isArray(node)) {
-        const i = parseInt(this._segments[len], 10);
-        if (isNaN(i)) {
-          throw Error(`Invalid JSON pointer array index reference at end of pointer.`);
+        if (part === '-') {
+          node.push(value);
+        } else {
+          const i = parseInt(part, 10);
+          if (isNaN(i)) {
+            throw Error(`Invalid JSON pointer array index reference at end of pointer.`);
+          }
+          node[i] = value;
         }
-        node[i] = value;
-      } else {
-        node[this._segments[len]] = value;
+        }
+      else {
+        node[part] = value;
       }
       }
     return input;
@@ -192,7 +198,7 @@ export class JsonPointer {
    */
   static compile(pointer: string, decodeOnly?: boolean): JsonPointer {
     const segments = pointer.split('/');
-    const firstSegment = segments.length >= 1 ? segments.shift() : undefined;
+    const firstSegment = segments.shift();
     if (firstSegment === '') {
       return new JsonPointer(
           // tslint:disable-next-line: no-unbound-method
@@ -205,7 +211,7 @@ export class JsonPointer {
               (v: string) => decodeURIComponent(v.replace(fromJpStringSearch, JsonPointer.fromJpStringReplace))),
           decodeOnly);
       }
-    throw new Error(`JSON pointer '${pointer}' is invalid.`);
+    throw new Error(`Invalid JSON pointer '${pointer}'.`);
   }
 
   /**
@@ -251,6 +257,7 @@ export class JsonPointer {
       case '~0':
         return '~';
         }
+    /* istanbul ignore next */
     throw new Error('JsonPointer.escapedReplacer: this should not happen');
   }
 
@@ -261,6 +268,7 @@ export class JsonPointer {
       case '~':
         return '~0';
         }
+    /* istanbul ignore next */
     throw new Error('JsonPointer.unescapedReplacer: this should not happen');
   }
 }
