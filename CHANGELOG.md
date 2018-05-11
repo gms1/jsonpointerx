@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.11
+
+* **Fix**
+  * setting a value by the special '-' reference token for JSON arrays
+
 ## 1.0.7-1.0.10
 
 * maintenance
