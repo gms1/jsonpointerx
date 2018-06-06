@@ -42,8 +42,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@types/jasmine": "^2.8.7",
-    "@types/node": "^10.0.3",
+    "@types/jasmine": "^2.8.8",
+    "@types/node": "^10.3.1",
     "coveralls": "^3.0.1",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
@@ -59,13 +59,13 @@
     "jasmine-spec-reporter": "^4.2.1",
     "jasmine-ts": "^0.2.1",
     "merge-stream": "^1.0.1",
-    "nyc": "^11.7.3",
-    "rollup": "^0.59.0",
+    "nyc": "^12.0.2",
+    "rollup": "^0.60.0",
     "rollup-plugin-uglify": "^4.0.0",
     "run-sequence": "^2.2.1",
     "tslint": "^5.10.0",
     "typedoc": "^0.11.1",
-    "typescript": "^2.8.3"
+    "typescript": "^2.9.1"
   },
   "typescript": {
     "definition": "./index.d.ts"
