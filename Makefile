@@ -6,8 +6,7 @@ default: test
 
 test:
 	npm run clean
-	npm run build
-	npm run test:run
+	npm run release:build
 	@( cd bench; npm install; npm test; )
 	@echo nodejs=$(NODE_VERSION)
 	@if [ "$(NODE_VERSION)" -gt 6 ]; then npm run coverage:run; fi
