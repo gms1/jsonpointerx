@@ -23,7 +23,7 @@
     "jsonpointerx": "file:../dist"
   },
   "devDependencies": {
-    "@types/node": "^10.3.3",
-    "ts-node": "^6.1.1"
+    "@types/node": "^10.5.1",
+    "ts-node": "^7.0.0"
   }
 }
