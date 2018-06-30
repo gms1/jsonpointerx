@@ -1,6 +1,6 @@
 {
   "spec_dir": "",
   "spec_files": [
-        "dist/spec/**/*spec.js"
-    ]
+    "dist/main/**/*spec.js"
+  ]
 }

@@ -6,7 +6,7 @@
     "removeComments": false,
     "stripInternal": false,
     "rootDir": "src/jsonpointerx",
-    "outDir": "./dist",
+    "outDir": "./dist/main",
     "declaration": true,
     "sourceMap": true,
     "experimentalDecorators": true,
