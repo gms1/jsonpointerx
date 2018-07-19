@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 1.0.12
+## 1.0.12 - 1.0.14
 
 * maintenance
 
@@ -9,11 +9,11 @@
 * **Fix**
   * setting a value by the special '-' reference token for JSON arrays
 
-## 1.0.7-1.0.10
+## 1.0.7 - 1.0.10
 
 * maintenance
 
-## 1.0.5-1.0.6
+## 1.0.5 - 1.0.6
 
 * **Feature**
   * added 'noCompile' option to globally disable the use of `new Function('..')`
