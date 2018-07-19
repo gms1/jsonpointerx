@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/jsonpointerx.svg)](https://badge.fury.io/js/jsonpointerx)
 [![Known Vulnerabilities](https://snyk.io/test/github/gms1/jsonpointerx/badge.svg)](https://snyk.io/test/github/gms1/jsonpointerx)
 [![Build Status](https://api.travis-ci.org/gms1/jsonpointerx.svg?branch=master)](https://travis-ci.org/gms1/jsonpointerx)
-[![Coverage Status](https://img.shields.io/coveralls/github/gms1/jsonpointerx/master.svg)](https://coveralls.io/github/gms1/jsonpointerx?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/gms1/jsonpointerx/badge.svg?branch=master)](https://coveralls.io/github/gms1/jsonpointerx?branch=master)
 [![DeepScan Grade](https://deepscan.io/api/projects/742/branches/1407/badge/grade.svg)](https://deepscan.io/dashboard/#view=project&pid=742&bid=1407)
 [![Dependency Status](https://david-dm.org/gms1/jsonpointerx.svg)](https://david-dm.org/gms1/jsonpointerx)
 [![Greenkeeper badge](https://badges.greenkeeper.io/gms1/jsonpointerx.svg)](https://greenkeeper.io/)
