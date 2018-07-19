@@ -14,7 +14,6 @@
   "author": "Guenter Sandner",
   "license": "MIT",
   "dependencies": {
-    "@types/benchmark": "^1.0.31",
     "beautify-benchmark": "^0.2.4",
     "benchmark": "^2.1.4",
     "json-pointer": "^0.6.0",
@@ -23,7 +22,8 @@
     "jsonpointerx": "file:../dist"
   },
   "devDependencies": {
-    "@types/node": "^10.5.1",
+    "@types/benchmark": "^1.0.31",
+    "@types/node": "^10.5.2",
     "ts-node": "^7.0.0"
   }
 }
