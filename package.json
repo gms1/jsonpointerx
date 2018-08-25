@@ -56,7 +56,7 @@
     "jasmine-ts": "^0.2.1",
     "nyc": "^12.0.2",
     "rimraf": "^2.6.2",
-    "rollup": "^0.64.1",
+    "rollup": "^0.65.0",
     "rollup-plugin-uglify": "^4.0.0",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
