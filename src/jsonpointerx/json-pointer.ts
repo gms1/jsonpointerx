@@ -6,7 +6,7 @@ export interface JsonPointerOpts { noCompile?: boolean; }
 export class JsonPointer {
   private static opts: JsonPointerOpts|undefined;
 
-  private _segments: string[];
+  private readonly _segments: string[];
   get segments(): string[] {
     return this._segments.slice(0);
   }
@@ -31,7 +31,7 @@ export class JsonPointer {
       }
     } else {
       this._segments = [];
-      }
+    }
     if (noCompile || (JsonPointer.opts && JsonPointer.opts.noCompile)) {
       this.fnGet = this.getUncompiled;
     } else {
@@ -63,30 +63,30 @@ export class JsonPointer {
         return undefined;
       }
       node = node[this._segments[idx++]];
-      }
+    }
     return node;
   }
 
 
   /**
-  * Set a value to the referenced location within an object
-  *
-  * @param obj - To object to be written in
-  * @param [value] - The value to be written to the referenced location
-  * @returns       returns 'value' if pointer.length === 1 or 'input' otherwise
-  *
-  * throws if 'input' is not an object
-  * throws if 'set' is called for a root JSON pointer
-  * throws on invalid array index references
-  * throws if one of the ancestors is a scalar (js engine): Cannot create propery 'foo' on 'baz'
-  */
+   * Set a value to the referenced location within an object
+   *
+   * @param obj - To object to be written in
+   * @param [value] - The value to be written to the referenced location
+   * @returns       returns 'value' if pointer.length === 1 or 'input' otherwise
+   *
+   * throws if 'input' is not an object
+   * throws if 'set' is called for a root JSON pointer
+   * throws on invalid array index references
+   * throws if one of the ancestors is a scalar (js engine): Cannot create propery 'foo' on 'baz'
+   */
   set(input: any, value?: any): any {
     if (typeof input !== 'object') {
       throw new Error('Invalid input object.');
-      }
+    }
     if (this._segments.length === 0) {
       throw new Error(`Set for root JSON pointer is not allowed.`);
-      }
+    }
 
     const len = this._segments.length - 1;
     let node = input;
@@ -102,7 +102,7 @@ export class JsonPointer {
           nextnode = [];
         } else {
           nextnode = {};
-          }
+        }
         if (Array.isArray(node)) {
           if (part === '-') {
             node.push(nextnode);
@@ -134,11 +134,10 @@ export class JsonPointer {
           }
           node[i] = value;
         }
-        }
-      else {
+      } else {
         node[part] = value;
       }
-      }
+    }
     return input;
   }
 
@@ -155,7 +154,7 @@ export class JsonPointer {
   toString(): string {
     if (this._segments.length === 0) {
       return '';
-      }
+    }
     return '/'.concat(
         // tslint:disable-next-line: no-unbound-method
         this._segments.map((v: string) => v.replace(toJpStringSearch, JsonPointer.toJpStringReplace)).join('/'));
@@ -164,7 +163,7 @@ export class JsonPointer {
   toURIFragmentIdentifier(): string {
     if (this._segments.length === 0) {
       return '#';
-      }
+    }
     return '#/'.concat(
         this._segments
             // tslint:disable-next-line: no-unbound-method
@@ -203,14 +202,14 @@ export class JsonPointer {
       return new JsonPointer(
           // tslint:disable-next-line: no-unbound-method
           segments.map((v: string) => v.replace(fromJpStringSearch, JsonPointer.fromJpStringReplace)), decodeOnly);
-      }
+    }
     if (firstSegment === '#') {
       return new JsonPointer(
           segments.map(
               // tslint:disable-next-line: no-unbound-method
               (v: string) => decodeURIComponent(v.replace(fromJpStringSearch, JsonPointer.fromJpStringReplace))),
           decodeOnly);
-      }
+    }
     throw new Error(`Invalid JSON pointer '${pointer}'.`);
   }
 
@@ -256,7 +255,7 @@ export class JsonPointer {
         return '/';
       case '~0':
         return '~';
-        }
+    }
     /* istanbul ignore next */
     throw new Error('JsonPointer.escapedReplacer: this should not happen');
   }
@@ -267,7 +266,7 @@ export class JsonPointer {
         return '~1';
       case '~':
         return '~0';
-        }
+    }
     /* istanbul ignore next */
     throw new Error('JsonPointer.unescapedReplacer: this should not happen');
   }

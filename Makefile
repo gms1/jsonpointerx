@@ -5,7 +5,6 @@ NODE_VERSION := $(shell node -v | awk -F. '{sub(/v/,""); print $$1}')
 default: test
 
 test:
-	npm run clean
 	npm run release:build
 	@( cd bench; npm install; npm test; )
 	@echo nodejs=$(NODE_VERSION)
