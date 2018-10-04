@@ -1,7 +1,7 @@
 {
   "name": "jsonpointer-bench",
   "version": "1.0.0",
-  "description": "",
+  "description": "benchmark several jsonpointer packages",
   "main": "index.js",
   "scripts": {
     "test": "ts-node --cache-directory=./cache ./src/jp-bench.ts",
@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@types/benchmark": "^1.0.31",
-    "@types/node": "^10.11.1",
+    "@types/node": "^10.11.4",
     "ts-node": "^7.0.1"
   }
 }
