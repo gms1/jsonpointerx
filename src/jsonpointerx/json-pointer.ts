@@ -1,10 +1,12 @@
 const fromJpStringSearch: RegExp = /~[01]/g;
 const toJpStringSearch: RegExp = /[~\/]/g;
 
-export interface JsonPointerOpts { noCompile?: boolean; }
+export interface JsonPointerOpts {
+  noCompile?: boolean;
+}
 
 export class JsonPointer {
-  private static opts: JsonPointerOpts|undefined;
+  private static opts: JsonPointerOpts | undefined;
 
   private readonly _segments: string[];
   get segments(): string[] {
@@ -22,7 +24,7 @@ export class JsonPointer {
    * @param [segments] - The path segments of the json-pointer / The decoded json-pointer
    * @param [noCompile] - disable compiling (using 'new Function')
    */
-  constructor(segments?: string|string[], noCompile?: boolean) {
+  constructor(segments?: string | string[], noCompile?: boolean) {
     if (segments) {
       if (Array.isArray(segments)) {
         this._segments = segments;
@@ -57,7 +59,7 @@ export class JsonPointer {
    */
   getUncompiled(input: any): any {
     let node = input;
-    for (let idx = 0; idx < this._segments.length;) {
+    for (let idx = 0; idx < this._segments.length; ) {
       // tslint:disable-next-line triple-equals
       if (node == undefined) {
         return undefined;
@@ -66,7 +68,6 @@ export class JsonPointer {
     }
     return node;
   }
-
 
   /**
    * Set a value to the referenced location within an object
@@ -93,7 +94,7 @@ export class JsonPointer {
     let nextnode: any;
     let part: string;
 
-    for (let idx = 0; idx < len;) {
+    for (let idx = 0; idx < len; ) {
       part = this._segments[idx++];
       nextnode = node[part];
       // tslint:disable-next-line triple-equals
@@ -144,7 +145,7 @@ export class JsonPointer {
   concat(p: JsonPointer): JsonPointer {
     return new JsonPointer(this._segments.concat(p.segments));
   }
-  concatSegment(segment: string|string[]): JsonPointer {
+  concatSegment(segment: string | string[]): JsonPointer {
     return new JsonPointer(this._segments.concat(segment));
   }
   concatPointer(pointer: string): JsonPointer {
@@ -156,8 +157,11 @@ export class JsonPointer {
       return '';
     }
     return '/'.concat(
+      this._segments
         // tslint:disable-next-line: no-unbound-method
-        this._segments.map((v: string) => v.replace(toJpStringSearch, JsonPointer.toJpStringReplace)).join('/'));
+        .map((v: string) => v.replace(toJpStringSearch, JsonPointer.toJpStringReplace))
+        .join('/'),
+    );
   }
 
   toURIFragmentIdentifier(): string {
@@ -165,16 +169,19 @@ export class JsonPointer {
       return '#';
     }
     return '#/'.concat(
-        this._segments
-            // tslint:disable-next-line: no-unbound-method
-            .map((v: string) => encodeURIComponent(v).replace(toJpStringSearch, JsonPointer.toJpStringReplace))
-            .join('/'));
+      this._segments
+        .map((v: string) =>
+          // tslint:disable-next-line: no-unbound-method
+          encodeURIComponent(v).replace(toJpStringSearch, JsonPointer.toJpStringReplace),
+        )
+        .join('/'),
+    );
   }
 
   private compileFunctions(): void {
     let body = '';
 
-    for (let idx = 0; idx < this._segments.length;) {
+    for (let idx = 0; idx < this._segments.length; ) {
       const segment = this._segments[idx++].replace(/\\/g, '\\\\');
       body += `
       if (node == undefined) return undefined;
@@ -200,15 +207,19 @@ export class JsonPointer {
     const firstSegment = segments.shift();
     if (firstSegment === '') {
       return new JsonPointer(
-          // tslint:disable-next-line: no-unbound-method
-          segments.map((v: string) => v.replace(fromJpStringSearch, JsonPointer.fromJpStringReplace)), decodeOnly);
+        // tslint:disable-next-line: no-unbound-method
+        segments.map((v: string) => v.replace(fromJpStringSearch, JsonPointer.fromJpStringReplace)),
+        decodeOnly,
+      );
     }
     if (firstSegment === '#') {
       return new JsonPointer(
-          segments.map(
-              // tslint:disable-next-line: no-unbound-method
-              (v: string) => decodeURIComponent(v.replace(fromJpStringSearch, JsonPointer.fromJpStringReplace))),
-          decodeOnly);
+        segments.map((v: string) =>
+          // tslint:disable-next-line: no-unbound-method
+          decodeURIComponent(v.replace(fromJpStringSearch, JsonPointer.fromJpStringReplace)),
+        ),
+        decodeOnly,
+      );
     }
     throw new Error(`Invalid JSON pointer '${pointer}'.`);
   }
@@ -224,7 +235,6 @@ export class JsonPointer {
   static get(obj: any, pointer: string): any {
     return JsonPointer.compile(pointer).get(obj);
   }
-
 
   /**
    * Set a value to the referenced location within an object
