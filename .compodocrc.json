@@ -1,0 +1,9 @@
+{
+  "name": "jsonpointerx",
+  "tsconfig": "tsconfig.json",
+  "output": "docs/jsonpointerx",
+  "theme": "vagrant",
+  "disablePrivate": true,
+  "disableProtected": true,
+  "disableInternal": true
+}
