@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@types/benchmark": "^1.0.31",
-    "@types/node": "^12.6.3",
+    "@types/node": "^12.7.3",
     "prettier": "^1.18.2",
     "ts-node": "^8.3.0"
   }
