@@ -1,6 +1,4 @@
 {
-  "spec_dir": "",
-  "spec_files": [
-    "dist/main/**/*spec.js"
-  ]
+  "spec_dir": "/src/jsonpointerx",
+  "spec_files": ["**/*spec.ts"]
 }

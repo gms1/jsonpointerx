@@ -17,14 +17,14 @@
     "beautify-benchmark": "^0.2.4",
     "benchmark": "^2.1.4",
     "json-pointer": "^0.6.0",
-    "json-ptr": "^1.1.2",
+    "json-ptr": "^1.2.0",
     "jsonpointer": "^4.0.1",
     "jsonpointerx": "file:../dist"
   },
   "devDependencies": {
     "@types/benchmark": "^1.0.31",
-    "@types/node": "^12.7.3",
+    "@types/node": "^12.11.2",
     "prettier": "^1.18.2",
-    "ts-node": "^8.3.0"
+    "ts-node": "^8.4.1"
   }
 }
