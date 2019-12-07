@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.27
+
+- downgraded typescript to <3.7 because of breaking change in minor version
+  https://github.com/microsoft/TypeScript/issues/33939
+
 ## 1.0.12 - 1.0.26
 
 - maintenance
