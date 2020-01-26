@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.28
+
+- maintenance release
+
 ## 1.0.27
 
 - downgraded typescript to <3.7 because of breaking change in minor version
