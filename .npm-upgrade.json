@@ -1,8 +1,8 @@
 {
   "ignore": {
-    "nyc": {
-      "versions": "14.x",
-      "reason": "https://github.com/istanbuljs/nyc/issues/1211"
+    "typescript": {
+      "versions": ">= 3.7",
+      "reason": "breaking change breaks angular "
     }
   }
 }
