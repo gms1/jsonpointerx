@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 1.0.28
+## 1.0.28 - 1.0.29
 
 - maintenance release
 
