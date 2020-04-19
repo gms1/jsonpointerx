@@ -3,6 +3,10 @@
     "typescript": {
       "versions": ">= 3.7",
       "reason": "breaking change breaks angular "
+    },
+    "prettier": {
+      "versions": ">= 2.0",
+      "reason": ""
     }
   }
 }
