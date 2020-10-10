@@ -3,8 +3,8 @@ import * as bm from 'benchmark';
 const bbm = require('beautify-benchmark');
 
 import {JsonPointer as JsonPointerX} from 'jsonpointerx';
+import { JsonPointer as json_ptr_i } from 'json-ptr';
 const jsonpointer_i = require('jsonpointer');
-const json_ptr_i = require('json-ptr');
 const json_pointer_i = require('json-pointer');
 
 
