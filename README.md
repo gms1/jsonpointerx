@@ -22,7 +22,7 @@ npm install jsonpointerx
 
 ### Usage
 
-```Javascript
+```JavaScript
 import {JsonPointer} from 'jsonpointerx';
 
 let content = { foo: ['bar', 'baz'], more: {x: 'y'} };
@@ -53,7 +53,7 @@ jp2.concatPointer('/add/new').toString();    // returns '/more/add/new'
 
 for convenience these further static methods exist:
 
-```Javascript
+```JavaScript
 
 JsonPointer.set(content, '/foo/0', 'bar');      // sets content.foo[0] to 'bar'
 JsonPointer.get(content, '/foo/0');             // returns 'bar' (content.foo[0])
@@ -103,10 +103,24 @@ json pointer: set property - suite:
 ## Security
 
 > NOTE: sometimes the use of `new Function('...')` is forbidden (e.g using strict content-security-policy)
-> so you may want to disable this feature by setting the global 'noCompile' option to 'off':
+> so you may want to disable this feature by setting the global 'noCompile' option to 'true':
+
+```JavaScript
+JsonPointer.options({noCompile: true});
+```
+
+> NOTE: you can blacklist certain JSON pointer segments. By default only '__proto__' and 'prototype' are blacklisted
+
+e.g to add 'foo' to the blacklist:
+
+```JavaScript
+JsonPointer.options().blacklist.push('foo');
+```
+
+or
 
 ```Javascript
-JsonPointer.options({noCompile: true});
+JsonPointer.options({blacklist: ['__proto__', 'prototype', 'foo']});
 ```
 
 ## License

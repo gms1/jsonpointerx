@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 1.1.0
+## 1.1.1
 
 - feature: Support for blacklisting certain JSON pointer segments
 - breaking change: '__proto__' and 'prototype' are blacklisted by default
