@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "ESNext",
     "module": "commonjs",
     "moduleResolution": "node",
     "removeComments": false,
@@ -18,19 +18,10 @@
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "types": [
-      "node",
-      "jasmine"
-    ]
+    "typeRoots": ["node_modules/@types"],
+    "types": ["node", "jasmine"],
+    "lib": ["ESNext", "dom"]
   },
-  "include": [
-    "./src/**/*"
-  ],
-  "exclude": [
-    "./dist/**/*",
-    "./node_modules/**/*"
-  ]
+  "include": ["./src/**/*"],
+  "exclude": ["./dist/**/*", "./node_modules/**/*"]
 }

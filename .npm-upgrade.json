@@ -1,8 +1,8 @@
 {
   "ignore": {
     "typescript": {
-      "versions": ">= 3.7",
-      "reason": "breaking change breaks angular "
+      "versions": ">= 4.1",
+      "reason": "angular/cli v11 peer dependency"
     },
     "prettier": {
       "versions": ">= 2.0",

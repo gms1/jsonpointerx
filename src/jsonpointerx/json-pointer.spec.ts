@@ -20,10 +20,13 @@ function testConvertURIFragment(ptr: string, alt?: string, isRoot: boolean = fal
   );
 }
 
+const DEFAULT_OPTIONS = JsonPointer.options();
+
 describe('json-pointer', () => {
   let rfcExample: any;
 
   beforeEach(() => {
+    JsonPointer.options(DEFAULT_OPTIONS);
     rfcExample = {
       foo: ['bar', 'baz'],
       '': 0,
@@ -400,5 +403,7 @@ describe('json-pointer', () => {
   it('compile failure', () => {
     expect(() => JsonPointer.compile('abc')).toThrow();
     expect(() => JsonPointer.compile('#abc')).toThrow();
+    expect(() => JsonPointer.compile('/a/__proto__/b')).toThrow(); // '__proto__' is blacklisted by default
+    expect(() => JsonPointer.compile('/prototype/b')).toThrow(); // 'prototype' is blacklisted by default
   });
 });

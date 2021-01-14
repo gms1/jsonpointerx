@@ -3,10 +3,13 @@ const toJpStringSearch: RegExp = /[~\/]/g;
 
 export interface JsonPointerOpts {
   noCompile?: boolean;
+  blacklist?: string[];
 }
 
 export class JsonPointer {
-  private static opts: JsonPointerOpts | undefined;
+  private static opts: JsonPointerOpts | undefined = {
+    blacklist: ['__proto__', 'prototype'],
+  };
 
   private readonly _segments: string[];
   get segments(): string[] {
@@ -33,6 +36,14 @@ export class JsonPointer {
       }
     } else {
       this._segments = [];
+    }
+    if (JsonPointer.opts?.blacklist) {
+      const blacklist = JsonPointer.opts?.blacklist;
+      this._segments.forEach((segment) => {
+        if (blacklist.includes(segment)) {
+          throw new Error(`JSON pointer segment '${segment}' is blacklisted`);
+        }
+      });
     }
     if (noCompile || (JsonPointer.opts && JsonPointer.opts.noCompile)) {
       this.fnGet = this.getUncompiled;
@@ -255,8 +266,11 @@ export class JsonPointer {
    * @static
    * @param {JsonPointerOpts} opts
    */
-  static options(opts: JsonPointerOpts): void {
-    JsonPointer.opts = opts;
+  static options(opts?: JsonPointerOpts): JsonPointerOpts | undefined {
+    if (opts) {
+      JsonPointer.opts = opts;
+    }
+    return JsonPointer.opts;
   }
 
   private static fromJpStringReplace(v: string): string {
