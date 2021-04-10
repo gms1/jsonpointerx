@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.2
+
+- maintenance release
+
 ## 1.1.1
 
 - feature: Support for blacklisting certain JSON pointer segments
