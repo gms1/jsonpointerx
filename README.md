@@ -65,9 +65,8 @@ JsonPointer.get(content, '/foo/0');             // returns 'bar' (content.foo[0]
 
 ## Benchmark
 
-> NOTE: The 'json-ptr' library is very fast, but the 'get' method throws an exception if an ancestor has a null value, which may lead to poor performance if one can not exclude such situations
-
 ```shell
+
 gms@orion:~/work/HOT/jsonpointerx/bench$ npm run test
 
 ============================================================
@@ -75,30 +74,31 @@ json pointer: get defined property - suite:
 ------------------------------------------------------------
   4 tests completed.
 
-  json_pointer.get x     349,905 ops/sec ±1.36% (87 runs sampled)
-  jsonpointer.get  x   2,775,193 ops/sec ±1.16% (86 runs sampled)
-  json-ptr.get     x 635,536,028 ops/sec ±0.97% (86 runs sampled)
-  jsonpointerx.get x 811,617,229 ops/sec ±1.03% (84 runs sampled)
+  json_pointer.get x     316,916 ops/sec ±1.42% (90 runs sampled)
+  jsonpointer.get  x   2,400,864 ops/sec ±1.76% (89 runs sampled)
+  json-ptr.get     x 613,002,616 ops/sec ±1.87% (82 runs sampled)
+  jsonpointerx.get x 615,695,145 ops/sec ±1.65% (81 runs sampled)
 
 ============================================================
 json pointer: get property from 'null' ancestor - suite:
 ------------------------------------------------------------
   4 tests completed.
 
-  json_pointer.get x     105,759 ops/sec ±1.57% (86 runs sampled)
-  jsonpointer.get  x     190,582 ops/sec ±1.95% (84 runs sampled)
-  json-ptr.get     x     239,306 ops/sec ±1.09% (83 runs sampled)
-  jsonpointerx.get x 810,884,287 ops/sec ±1.44% (83 runs sampled)
+  json_pointer.get x     103,902 ops/sec ±1.51% (89 runs sampled)
+  jsonpointer.get  x      50,715 ops/sec ±1.04% (86 runs sampled)
+  json-ptr.get     x 600,672,801 ops/sec ±0.80% (87 runs sampled)
+  jsonpointerx.get x 622,274,809 ops/sec ±2.32% (78 runs sampled)
 
 ============================================================
 json pointer: set property - suite:
 ------------------------------------------------------------
   4 tests completed.
 
-  json_pointer.set x   352,312 ops/sec ±1.63% (86 runs sampled)
-  jsonpointer.set  x 2,212,944 ops/sec ±0.90% (87 runs sampled)
-  json-ptr.set     x 3,974,295 ops/sec ±1.15% (91 runs sampled)
-  jsonpointerx.set x 7,331,909 ops/sec ±0.94% (88 runs sampled)
+  json_pointer.set x   306,502 ops/sec ±3.08% (85 runs sampled)
+  jsonpointer.set  x 1,901,331 ops/sec ±1.45% (85 runs sampled)
+  json-ptr.set     x 2,628,298 ops/sec ±1.94% (79 runs sampled)
+  jsonpointerx.set x 7,150,798 ops/sec ±1.31% (87 runs sampled)
+
 ```
 
 ## Security
