@@ -1,4 +1,4 @@
-// tslint:disable no-null-keyword
+// tslint:disable no-null-keyword no-unused-variable only-arrow-functions typedef
 
 import { JsonPointer } from './index';
 
@@ -36,6 +36,7 @@ describe('json-pointer', () => {
       'g|h': 4,
       'i\\j': 5,
       'k"l': 6,
+      "k'l": 6,
       ' ': 7,
       'm~n': 8,
     };
@@ -52,6 +53,7 @@ describe('json-pointer', () => {
     testConvertString('/g|h');
     testConvertString('/i\\j');
     testConvertString('/k"l');
+    testConvertString("/k'l");
     testConvertString('/ ');
     testConvertString('/m~0n');
 
@@ -65,6 +67,7 @@ describe('json-pointer', () => {
     testConvertURIFragment('#/g%7Ch');
     testConvertURIFragment('#/i%5Cj');
     testConvertURIFragment('#/k%22l');
+    testConvertURIFragment('#/k%27l', "#/k'l");
     testConvertURIFragment('#/%20');
     testConvertURIFragment('#/m~0n');
   });
@@ -109,6 +112,10 @@ describe('json-pointer', () => {
     expect(JsonPointer.compile('/k"l', decodeOnly).get(rfcExample)).toEqual(
       rfcExample['k"l'],
       'get failed for "/k"l"',
+    );
+    expect(JsonPointer.compile("/k'l", decodeOnly).get(rfcExample)).toEqual(
+      rfcExample["k'l"],
+      'get failed for "/k\'l"',
     );
     expect(JsonPointer.compile('/ ', decodeOnly).get(rfcExample)).toEqual(
       rfcExample[' '],
@@ -158,6 +165,10 @@ describe('json-pointer', () => {
     expect(JsonPointer.compile('#/k%22l', decodeOnly).get(rfcExample)).toEqual(
       rfcExample['k"l'],
       'get failed for "#/k%22l"',
+    );
+    expect(JsonPointer.compile('#/k%27l', decodeOnly).get(rfcExample)).toEqual(
+      rfcExample["k'l"],
+      'get failed for "#/k%27l"',
     );
     expect(JsonPointer.compile('#/%20', decodeOnly).get(rfcExample)).toEqual(
       rfcExample[' '],
@@ -309,6 +320,11 @@ describe('json-pointer', () => {
     jp = JsonPointer.compile('/k"l');
     jp.set(rfcExample, setValue);
     expect(jp.get(rfcExample)).toEqual(setValue, 'set failed for "/k"l"');
+
+    setValue = 3;
+    jp = JsonPointer.compile("/k'l");
+    jp.set(rfcExample, setValue);
+    expect(jp.get(rfcExample)).toEqual(setValue, 'set failed for "/k\'l"');
 
     setValue = 2;
     jp = JsonPointer.compile('/ ');

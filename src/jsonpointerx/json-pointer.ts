@@ -193,7 +193,7 @@ export class JsonPointer {
     let body = '';
 
     for (let idx = 0; idx < this._segments.length; ) {
-      const segment = this._segments[idx++].replace(/\\/g, '\\\\');
+      const segment = this._segments[idx++].replace(/\\/g, '\\\\').replace(/\'/g, "\\'");
       body += `
       if (node == undefined) return undefined;
       node = node['${segment}'];
