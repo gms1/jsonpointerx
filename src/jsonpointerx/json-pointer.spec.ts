@@ -1,8 +1,8 @@
-// tslint:disable no-null-keyword no-unused-variable only-arrow-functions typedef
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { JsonPointer } from './index';
 
-function testConvertString(ptr: string, isRoot: boolean = false): void {
+function testConvertString(ptr: string, isRoot = false): void {
   const jp = JsonPointer.compile(ptr);
   expect(jp.toString()).toEqual(ptr, `convert failed for "${ptr}"`);
   expect(jp.root).toEqual(
@@ -11,7 +11,7 @@ function testConvertString(ptr: string, isRoot: boolean = false): void {
   );
 }
 
-function testConvertURIFragment(ptr: string, alt?: string, isRoot: boolean = false): void {
+function testConvertURIFragment(ptr: string, alt?: string, isRoot = false): void {
   const jp = JsonPointer.compile(ptr);
   expect(jp.toURIFragmentIdentifier()).toEqual(alt ? alt : ptr, `convert failed for "${ptr}"`);
   expect(jp.root).toEqual(

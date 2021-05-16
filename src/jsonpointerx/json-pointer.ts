@@ -1,5 +1,7 @@
-const fromJpStringSearch: RegExp = /~[01]/g;
-const toJpStringSearch: RegExp = /[~\/]/g;
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const fromJpStringSearch = /~[01]/g;
+const toJpStringSearch = /[~/]/g;
 
 export interface JsonPointerOpts {
   noCompile?: boolean;
@@ -46,7 +48,7 @@ export class JsonPointer {
       });
     }
     if (noCompile || (JsonPointer.opts && JsonPointer.opts.noCompile)) {
-      this.fnGet = this.getUncompiled;
+      this.fnGet = this.notCompiledGet;
     } else {
       this.compileFunctions();
     }
@@ -55,7 +57,7 @@ export class JsonPointer {
   /**
    * Get a value from a referenced location within an object
    *
-   * @param obj - The object to be read from
+   * @param input - The object to be read from
    * @returns The value from the referenced location or undefined
    */
   get(input: any): any {
@@ -65,13 +67,12 @@ export class JsonPointer {
   /**
    * fallback if compilation (using 'new Function') is disabled
    *
-   * @param obj - The object to be read from
+   * @param input - The object to be read from
    * @returns The value from the referenced location or undefined
    */
-  getUncompiled(input: any): any {
+  notCompiledGet(input: any): any {
     let node = input;
     for (let idx = 0; idx < this._segments.length; ) {
-      // tslint:disable-next-line triple-equals
       if (node == undefined) {
         return undefined;
       }
@@ -108,7 +109,6 @@ export class JsonPointer {
     for (let idx = 0; idx < len; ) {
       part = this._segments[idx++];
       nextnode = node[part];
-      // tslint:disable-next-line triple-equals
       if (nextnode == undefined) {
         if (this._segments[idx] === '-') {
           nextnode = [];
@@ -169,7 +169,6 @@ export class JsonPointer {
     }
     return '/'.concat(
       this._segments
-        // tslint:disable-next-line: no-unbound-method
         .map((v: string) => v.replace(toJpStringSearch, JsonPointer.toJpStringReplace))
         .join('/'),
     );
@@ -182,7 +181,6 @@ export class JsonPointer {
     return '#/'.concat(
       this._segments
         .map((v: string) =>
-          // tslint:disable-next-line: no-unbound-method
           encodeURIComponent(v).replace(toJpStringSearch, JsonPointer.toJpStringReplace),
         )
         .join('/'),
@@ -193,7 +191,7 @@ export class JsonPointer {
     let body = '';
 
     for (let idx = 0; idx < this._segments.length; ) {
-      const segment = this._segments[idx++].replace(/\\/g, '\\\\').replace(/\'/g, "\\'");
+      const segment = this._segments[idx++].replace(/\\/g, '\\\\').replace(/'/g, "\\'");
       body += `
       if (node == undefined) return undefined;
       node = node['${segment}'];
@@ -218,7 +216,6 @@ export class JsonPointer {
     const firstSegment = segments.shift();
     if (firstSegment === '') {
       return new JsonPointer(
-        // tslint:disable-next-line: no-unbound-method
         segments.map((v: string) => v.replace(fromJpStringSearch, JsonPointer.fromJpStringReplace)),
         decodeOnly,
       );
@@ -226,7 +223,6 @@ export class JsonPointer {
     if (firstSegment === '#') {
       return new JsonPointer(
         segments.map((v: string) =>
-          // tslint:disable-next-line: no-unbound-method
           decodeURIComponent(v.replace(fromJpStringSearch, JsonPointer.fromJpStringReplace)),
         ),
         decodeOnly,
@@ -268,7 +264,7 @@ export class JsonPointer {
    */
   static options(opts?: JsonPointerOpts): JsonPointerOpts | undefined {
     if (opts) {
-      JsonPointer.opts = opts;
+      JsonPointer.opts = { ...JsonPointer.opts, ...opts };
     }
     return JsonPointer.opts;
   }

@@ -25,3 +25,4 @@ npm-debug.log*
 
 *:memory*
 cache
+*.log
