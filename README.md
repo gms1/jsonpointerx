@@ -103,6 +103,8 @@ json pointer: set property - suite:
 
 ## Security
 
+> NOTE: please do not feed this library with unsanitized user input
+
 > NOTE: sometimes the use of `new Function('...')` is forbidden (e.g using strict content-security-policy)
 > so you may want to disable this feature by setting the global 'noCompile' option to 'true':
 
