@@ -1,7 +1,7 @@
 # jsonpointerx
 
 [![npm version](https://badge.fury.io/js/jsonpointerx.svg)](https://badge.fury.io/js/jsonpointerx)
-[![Build Status](https://api.travis-ci.com/gms1/jsonpointerx.svg?branch=master)](https://travis-ci.com/gms1/jsonpointerx)
+[![Converted Workflow](https://github.com/gms1/jsonpointerx/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/gms1/jsonpointerx/actions/workflows/build.yml)
 [![Coverage Status](https://codecov.io/gh/gms1/jsonpointerx/branch/master/graph/badge.svg)](https://codecov.io/gh/gms1/jsonpointerx)
 [![DeepScan Grade](https://deepscan.io/api/projects/742/branches/1407/badge/grade.svg)](https://deepscan.io/dashboard/#view=project&pid=742&bid=1407)
 [![Dependency Status](https://david-dm.org/gms1/jsonpointerx.svg)](https://david-dm.org/gms1/jsonpointerx)

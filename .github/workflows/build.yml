@@ -1,4 +1,4 @@
-name: Converted Workflow
+name: Build Workflow
 "on":
   push:
     branches:
@@ -12,9 +12,9 @@ jobs:
     strategy:
       matrix:
         os:
-          - ubuntu-18.04
+          - ubuntu-20.04
         node-version:
-          - 14.x
+          - 16.x
     steps:
       - name: "Set up Node.js ${{ matrix.node-version }}"
         uses: actions/setup-node@v1
