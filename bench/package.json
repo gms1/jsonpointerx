@@ -17,7 +17,7 @@
     "beautify-benchmark": "^0.2.4",
     "benchmark": "^2.1.4",
     "json-pointer": "^0.6.1",
-    "json-ptr": "^2.2.0",
+    "json-ptr": "^3.0.0",
     "jsonpointer": "^4.1.0",
     "jsonpointerx": "file:../dist"
   },
