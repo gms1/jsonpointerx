@@ -1,12 +1,12 @@
 # jsonpointerx
 
-![Version](https://img.shields.io/npm/v/jsonpointerx)
+[![Version](https://img.shields.io/npm/v/jsonpointerx)](https://www.npmjs.com/package/jsonpointerx)
 [![Build Workflow](https://github.com/gms1/jsonpointerx/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/gms1/jsonpointerx/actions/workflows/build.yml)
 [![Coverage Status](https://codecov.io/gh/gms1/jsonpointerx/branch/master/graph/badge.svg)](https://codecov.io/gh/gms1/jsonpointerx)
 [![DeepScan Grade](https://deepscan.io/api/projects/742/branches/1407/badge/grade.svg)](https://deepscan.io/dashboard/#view=project&pid=742&bid=1407)
 [![Known Vulnerabilities](https://snyk.io/test/github/gms1/jsonpointerx/badge.svg)](https://snyk.io/test/github/gms1/jsonpointerx)
 
-![License](https://img.shields.io/npm/l/jsonpointerx)
+[![License](https://img.shields.io/npm/l/jsonpointerx)](https://github.com/gms1/jsonpointerx/blob/master/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 **jsonpointerx** is one of the x-th jsonpointer implementation
