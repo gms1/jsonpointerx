@@ -4,7 +4,6 @@
 [![Build Workflow](https://github.com/gms1/jsonpointerx/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/gms1/jsonpointerx/actions/workflows/build.yml)
 [![Coverage Status](https://codecov.io/gh/gms1/jsonpointerx/branch/master/graph/badge.svg)](https://codecov.io/gh/gms1/jsonpointerx)
 [![DeepScan Grade](https://deepscan.io/api/projects/742/branches/1407/badge/grade.svg)](https://deepscan.io/dashboard/#view=project&pid=742&bid=1407)
-[![Dependency Status](https://david-dm.org/gms1/jsonpointerx.svg)](https://david-dm.org/gms1/jsonpointerx)
 [![Known Vulnerabilities](https://snyk.io/test/github/gms1/jsonpointerx/badge.svg)](https://snyk.io/test/github/gms1/jsonpointerx)
 
 ![License](https://img.shields.io/npm/l/jsonpointerx)
