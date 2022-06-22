@@ -1,13 +1,13 @@
 # jsonpointerx
 
-[![npm version](https://badge.fury.io/js/jsonpointerx.svg)](https://badge.fury.io/js/jsonpointerx)
-[![Converted Workflow](https://github.com/gms1/jsonpointerx/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/gms1/jsonpointerx/actions/workflows/build.yml)
+![Version](https://img.shields.io/npm/v/jsonpointerx)
+[![Build Workflow](https://github.com/gms1/jsonpointerx/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/gms1/jsonpointerx/actions/workflows/build.yml)
 [![Coverage Status](https://codecov.io/gh/gms1/jsonpointerx/branch/master/graph/badge.svg)](https://codecov.io/gh/gms1/jsonpointerx)
 [![DeepScan Grade](https://deepscan.io/api/projects/742/branches/1407/badge/grade.svg)](https://deepscan.io/dashboard/#view=project&pid=742&bid=1407)
 [![Dependency Status](https://david-dm.org/gms1/jsonpointerx.svg)](https://david-dm.org/gms1/jsonpointerx)
 [![Known Vulnerabilities](https://snyk.io/test/github/gms1/jsonpointerx/badge.svg)](https://snyk.io/test/github/gms1/jsonpointerx)
 
-![NPM](https://img.shields.io/npm/l/jsonpointerx)
+![License](https://img.shields.io/npm/l/jsonpointerx)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 **jsonpointerx** is one of the x-th jsonpointer implementation
@@ -74,32 +74,34 @@ json pointer: get defined property - suite:
 ------------------------------------------------------------
   4 tests completed.
 
-  json_pointer.get x     316,916 ops/sec ±1.42% (90 runs sampled)
-  jsonpointer.get  x   2,400,864 ops/sec ±1.76% (89 runs sampled)
-  json-ptr.get     x 613,002,616 ops/sec ±1.87% (82 runs sampled)
-  jsonpointerx.get x 615,695,145 ops/sec ±1.65% (81 runs sampled)
+  json_pointer.get x     538,688 ops/sec ±0.19% (100 runs sampled)
+  jsonpointer.get  x   5,282,555 ops/sec ±0.43% (94 runs sampled)
+  json-ptr.get     x 893,703,300 ops/sec ±0.74% (88 runs sampled)
+  jsonpointerx.get x 964,196,465 ops/sec ±1.93% (87 runs sampled)
 
 ============================================================
 json pointer: get property from 'null' ancestor - suite:
 ------------------------------------------------------------
   4 tests completed.
 
-  json_pointer.get x     103,902 ops/sec ±1.51% (89 runs sampled)
-  jsonpointer.get  x      50,715 ops/sec ±1.04% (86 runs sampled)
-  json-ptr.get     x 600,672,801 ops/sec ±0.80% (87 runs sampled)
-  jsonpointerx.get x 622,274,809 ops/sec ±2.32% (78 runs sampled)
+  json_pointer.get x     125,478 ops/sec ±0.83% (96 runs sampled)
+  jsonpointer.get  x      81,552 ops/sec ±0.17% (97 runs sampled)
+  json-ptr.get     x 879,120,006 ops/sec ±0.26% (88 runs sampled)
+  jsonpointerx.get x 882,737,697 ops/sec ±0.96% (93 runs sampled)
 
 ============================================================
 json pointer: set property - suite:
 ------------------------------------------------------------
   4 tests completed.
 
-  json_pointer.set x   306,502 ops/sec ±3.08% (85 runs sampled)
-  jsonpointer.set  x 1,901,331 ops/sec ±1.45% (85 runs sampled)
-  json-ptr.set     x 2,628,298 ops/sec ±1.94% (79 runs sampled)
-  jsonpointerx.set x 7,150,798 ops/sec ±1.31% (87 runs sampled)
+  json_pointer.set x    492,791 ops/sec ±1.98% (95 runs sampled)
+  jsonpointer.set  x  4,088,610 ops/sec ±0.41% (94 runs sampled)
+  json-ptr.set     x  6,012,530 ops/sec ±0.28% (94 runs sampled)
+  jsonpointerx.set x 14,032,516 ops/sec ±0.65% (99 runs sampled)
 
 ```
+
+> NOTE: while 'json-ptr' is now similar fast for `get` operations, 'jsonpointerx' is about 2 times faster for the `set` operation
 
 ## Security
 
@@ -112,7 +114,7 @@ json pointer: set property - suite:
 JsonPointer.options({noCompile: true});
 ```
 
-> NOTE: you can blacklist certain JSON pointer segments. By default only '__proto__' and 'prototype' are blacklisted
+> NOTE: you can blacklist certain JSON pointer segments. By default only `__proto__` and `prototype` are blacklisted
 
 e.g to add 'foo' to the blacklist:
 
