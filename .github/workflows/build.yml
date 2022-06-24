@@ -28,7 +28,8 @@ jobs:
       - name: "Benchmark"
         working-directory: "./bench"
         run: |
-          npm ci
+          pwd
+          npm i
           npm test
       - name: "Coverage Report"
         run: |
