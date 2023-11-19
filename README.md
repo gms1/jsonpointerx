@@ -1,8 +1,9 @@
 # jsonpointerx
 
-THIS PROJECT HAS BEEN MOVED!
+**THIS PROJECT HAS BEEN MOVED!**
 
-THE NEW LOCATION IS HERE: [jsonpointerx](https://github.com/gms1/HomeOfThings/tree/master/packages/js/jsonpointerx)
+**THE NEW LOCATION IS HERE: [jsonpointerx](https://github.com/gms1/HomeOfThings/tree/master/packages/js/jsonpointerx)**
+
 
 [![Version](https://img.shields.io/npm/v/jsonpointerx)](https://www.npmjs.com/package/jsonpointerx)
 [![Build Workflow](https://github.com/gms1/jsonpointerx/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/gms1/jsonpointerx/actions/workflows/build.yml)
